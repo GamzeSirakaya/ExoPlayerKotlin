@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
     var playerView: PlayerView? = null
     var drmLicenseUrl = "https://proxy.uat.widevine.com/proxy?provider=widevine_test"
     var player: SimpleExoPlayer? = null
-    private var mContext: Context? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mContext = this
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         changeChannelInitializePlayer()
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun changeChannelInitializePlayer() {
         val path = "https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"
         val uri = Uri.parse(path)
-        Glide.with(mContext!!)
+        Glide.with(applicationContext)
                 .load(R.drawable.atv)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 .setDrmMultiSession(true)
                 .build()
         if (player == null) {
-            player = SimpleExoPlayer.Builder(mContext!!).build()
+            player = SimpleExoPlayer.Builder(applicationContext).build()
             playerView?.player = player
             player!!.playWhenReady = true
         }
